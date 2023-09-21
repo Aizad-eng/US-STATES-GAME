@@ -23,9 +23,11 @@ tim.hideturtle()
 chances=3
 print(f"You have {chances} Chances available")
 while chances>0:
-    found = False
     user_choice = screen.textinput(f"{user_score}/{len(data)} ", prompt="Which state? ").title()
-    if user_choice in states and user_choice not in states_already_learnt:
+    if user_choice.lower() == "exit":
+        print("Exiting the Game!")
+        chances = 0
+    elif user_choice in states and user_choice not in states_already_learnt:
         user_score+=1
         states_already_learnt.append(user_choice)
         tim.penup()
@@ -38,9 +40,10 @@ while chances>0:
         chances -= 1
         if chances>=1:
             print(f"{user_choice} is not a valid US state. You have {chances} Chance(s) left")
+        else:
+            print("You have no chances left, Game Over")
+            print("Please open the csv file States to learn.csv to learn about the remaining states")
 
-print("You have no chances left, Game Over")
-print("Please open the csv file States to learn.csv to learn about the remaining states")
 for state in states:
     if state not in states_already_learnt:
         states_to_learn.append(state)
